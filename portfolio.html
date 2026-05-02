@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Art Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blush: #DEC3B3;
+      --mist: #D2DCE4;
+      --frost: #E7EBEE;
+      --rose: #E5D6CE;
+      --cream: #F8F2EF;
+      --ink: #2E2825;
+      --ink-muted: #6B5E58;
+      --ink-faint: #A89890;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4rem;
+      background: rgba(248, 242, 239, 0.88);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(222,195,179,0.3);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-instagram {
+      display: flex;
+      align-items: center;
+      color: var(--ink-muted);
+      transition: color 0.2s;
+    }
+
+    .nav-instagram:hover {
+      color: var(--ink);
+    }
+
+    .nav-instagram svg {
+      position: relative;
+      top: 3px;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 5rem;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 4rem 6rem 5rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--ink-muted);
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: var(--ink-muted);
+      max-width: 360px;
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--blush);
+      padding-bottom: 0.2rem;
+      transition: border-color 0.2s, gap 0.2s;
+    }
+    .hero-cta:hover { gap: 1.2rem; border-color: var(--ink); }
+
+    .hero-visual {
+      background: var(--rose);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-img {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 3px;
+    }
+
+    .hero-grid-img .cell {
+      background: var(--blush);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-img .cell:nth-child(1) { background: #C9B4A7; }
+    .hero-grid-img .cell:nth-child(2) { background: var(--mist); }
+    .hero-grid-img .cell:nth-child(3) { background: var(--frost); }
+    .hero-grid-img .cell:nth-child(4) { background: #BFC4C0; }
+
+    .cell-label {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(46,40,37,0.5);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: var(--blush);
+      animation: scrollDrop 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scrollDrop {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(0.4); opacity: 0.4; }
+    }
+
+    /* SECTION SHARED */
+    section { padding: 7rem 5rem; }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+    }
+
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--blush);
+    }
+
+    .section-count {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--ink-faint);
+    }
+
+    /* PAINTINGS */
+    #paintings { background: var(--cream); }
+
+    .paintings-masonry {
+      columns: 3;
+      column-gap: 1.5rem;
+    }
+
+   .painting-card {
+      position: relative;       /* ← needed for overlay to work */
+      break-inside: avoid; 
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+      padding: 24px;
+      background: #F8F2EF;      /* mat color */
+      border: 8px solid #C4A99B; /* frame color */
+      box-shadow:
+        inset 0 0 0 1px #A89890,
+        4px 8px 24px rgba(46,40,37,0.25);
+      overflow: visible;
+    }
+
+    .painting-img-wrap {
+      overflow: hidden; 
+    }
+
+     .painting-card img,
+    .painting-card .placeholder {
+      width: 100%;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+     .painting-card:hover img,
+    .painting-card:hover .placeholder { transform: scale(1.04); }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(46,40,37,0);
+      transition: background 0.4s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+
+    .painting-card:hover .card-overlay {
+      background: rgba(46,40,37,0.35);
+    }
+
+    .card-info {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s, transform 0.35s;
+    }
+
+    .painting-card:hover .card-info {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 0.2rem;
+    }
+
+    .card-info span {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(248,242,239,0.7);
+    }
+
+    /* PHOTOGRAPHY */
+    #photography { background: var(--frost); }
+
+    .photo-masonry {
+      columns: 2;
+      column-gap: 1.2rem;
+    }
+
+    .photo-item {
+      position: relative;       /* ← needed for overlay to work */
+      break-inside: avoid; 
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+      padding: 24px;
+      background: var(--frost);      /* mat color */
+      border: 8px solid #C4A99B; /* frame color */
+      box-shadow:
+        inset 0 0 0 1px #A89890,
+        4px 8px 24px rgba(46,40,37,0.25);
+      overflow: visible;
+    }
+
+    .photo-img-wrap {
+      overflow: hidden; 
+    }
+
+    .photo-item:hover img,
+    .photo-item:hover .placeholder { transform: scale(1.04); }
+    .photo-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .photo-meta {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem 1rem 0.8rem;
+      background: linear-gradient(transparent, rgba(46,40,37,0.55));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .photo-item:hover .photo-meta { opacity: 1; }
+
+    .photo-meta h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--cream);
+      font-weight: 400;
+    }
+
+    .photo-meta span {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(248,242,239,0.65);
+    }
+
+    /* ABOUT */
+    #about {
+      background: var(--blush);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-portrait {
+      aspect-ratio: 3/4;
+      background: var(--rose);
+      position: relative;
+    }
+
+    .about-portrait {
+      border: 6px solid var(--cream);
+      outline: 2px solid var(--ink);
+      box-shadow: 6px 8px 24px rgba(46,40,37,0.15);
+    }
+
+    .about-portrait-fill {
+      width: 100%;
+      height: 100%;
+      background: #C4A99B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-portrait-fill svg {
+      width: 60px;
+      opacity: 0.3;
+    }
+
+    .about-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 2rem;
+    }
+
+    .about-body {
+      font-size: 0.92rem;
+      line-height: 2;
+      color: var(--ink-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(46,40,37,0.15);
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--ink);
+      color: var(--cream);
+      text-align: center;
+      padding: 8rem 5rem;
+    }
+
+    #contact .section-rule { background: rgba(248,242,239,0.15); }
+    #contact .section-title { color: var(--cream); }
+    #contact .section-count { color: rgba(248,242,239,0.4); }
+
+    .contact-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--blush);
+      margin: 3rem 0 2rem;
+    }
+
+    .contact-sub {
+      font-size: 0.9rem;
+      color: rgba(248,242,239,0.55);
+      margin-bottom: 3.5rem;
+      line-height: 1.8;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--cream);
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--blush); }
+
+    .contact-link-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(248,242,239,0.4);
+    }
+
+    .contact-link-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+    }
+
+    .contact-form {
+      max-width: 540px;
+      margin: 4rem auto 0;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      background: rgba(248,242,239,0.06);
+      border: 1px solid rgba(248,242,239,0.12);
+      color: var(--cream);
+      padding: 0.85rem 1.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 300;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+      border-radius: 0;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: rgba(248,242,239,0.3);
+      letter-spacing: 0.05em;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--blush);
+    }
+
+    .contact-form textarea { min-height: 120px; resize: vertical; }
+
+    .contact-submit {
+      background: var(--blush);
+      color: var(--ink);
+      border: none;
+      padding: 0.9rem 2.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      justify-self: start;
+    }
+
+    .contact-submit:hover { background: #CAAF9F; }
+
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(248,242,239,0.06);
+      padding: 2rem 5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: rgba(248,242,239,0.25);
+    }
+
+    /* PLACEHOLDER IMAGES — colored blocks styled to look like artworks */
+    .img-block {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Painting placeholders */
+    .p1 { background: #B4A09A; }
+    .p2 { background: #C7C3BD; }
+    .p3 { background: #A8B6BE; }
+    .p4 { background: #D1BFB8; }
+    .p5 { background: #BEB7B0; }
+    .p6 { background: #C4C8CB; }
+    .p7 { background: #B8ABA5; }
+    .p8 { background: #CABFBB; }
+
+    /* Photo placeholders */
+    .ph1 { background: #9BADB8; }
+    .ph2 { background: #C8BDB7; }
+    .ph3 { background: #A7A59E; }
+    .ph4 { background: #B9C3CA; }
+    .ph5 { background: #C0B2AB; }
+    .ph6 { background: #AAB2B8; }
+    .ph7 { background: #BDB8B4; }
+    .ph8 { background: #C5BAB5; }
+    .ph9 { background: #A3AFBB; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      section { padding: 5rem 2rem; }
+      .paintings-masonry { grid-template-columns: repeat(2, 1fr); }
+      .photo-masonry { columns: 2; }
+      #about { grid-template-columns: 1fr; padding: 5rem 2rem; }
+      .about-portrait { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">Emma Jia</a>
+    <ul class="nav-links">
+      <li><a href="#paintings">Paintings</a></li>
+      <li><a href="#photography">Photography</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li>
+        <a href="https://instagram.com/emmajiart" target="_blank" class="nav-instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Visual Artist — New York</p>
+      <h1 class="hero-title">Painting<br>in <em>light</em><br>& shadow</h1>
+      <p class="hero-subtitle">A collection of paintings and photographs.</p>
+      <a href="#paintings" class="hero-cta">View portfolio →</a>
+    </div>
+    <div class="hero-visual">
+      <img src="person4.jpg" style="width:100%; height:100%; object-fit:cover;">
+      <div class="hero-scroll-hint">
+        <div class="scroll-line"></div>
+        scroll
+      </div>
+    </div>
+  </section>
+
+  <!-- PAINTINGS -->
+  <section id="paintings">
+    <div class="section-header">
+      <h2 class="section-title">Paintings</h2>
+      <div class="section-rule"></div>
+      <span class="section-count">08 works</span>
+    </div>
+
+    <div class="paintings-masonry">
+      <div class="painting-card">
+        <div class="painting-img-wrap">
+          <img src="Underwater_World.png" alt="Underwater World" style="width:100%; height:100%; object-fit:cover; display:block;">
+        </div>
+        <div class="card-overlay">
+          <div class="card-info">
+            <h3>Underwater World</h3>
+            <span>Oil on canvas · 2023 · 20x16 in.</span>
+          </div>
+        </div>
+      </div>
+      <div class="painting-card">
+        <div class="painting-img-wrap">
+          <img src="Floating Pagodas.png" alt="Floating Pagodas" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+          <div class="card-overlay">
+          <div class="card-info">
+            <h3>Floating Pagodas</h3>
+            <span>Color pencil and oil pastel on paper · 2024 · 24x20 in.</span>
+          </div>
+        </div>
+      </div>
+      <div class="painting-card">
+        <div class="painting-img-wrap">
+          <img src="Surfing Day.png" alt="Surfing Day" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="card-overlay">
+          <div class="card-info">
+            <h3>Surfing Day</h3>
+            <span>Oil on canvas · 2024 · 14x18 in.</span>
+          </div>
+        </div>
+      </div>
+      <div class="painting-card">
+        <div class="painting-img-wrap">
+          <img src="Art School.png" alt="Art School" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+          <div class="card-overlay">
+          <div class="card-info">
+            <h3>Art School</h3>
+            <span>Oil on canvas · 2022 · 16x20 in.</span>
+          </div>
+        </div>
+      </div>
+      <div class="painting-card">
+        <div class="painting-img-wrap">
+          <img src="The Nook.png" alt="The Nook" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+          <div class="card-overlay">
+          <div class="card-info">
+            <h3>The Nook</h3>
+            <span>Charcoal on paper · 2024 · 20x24 in.</span>
+          </div>
+        </div>
+      </div>
+      <div class="painting-card">
+        <div class="painting-img-wrap">
+          <img src="Two Empty Seats.png" alt="Two Empty Seats" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="card-overlay">
+          <div class="card-info">
+            <h3>Two Empty Seats</h3>
+            <span>Oil on canvas · 2022 · 6x8 in.</span>
+          </div>
+        </div>
+      </div>
+      <div class="painting-card">
+        <div class="painting-img-wrap">
+          <img src="Defining the Bounds.png" alt="Defining the Bounds" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="card-overlay">
+          <div class="card-info">
+            <h3>Defining the Bounds</h3>
+            <span>Gouache, pen, and collage on paper · 2024 · 14x11 in.</span>
+          </div>
+        </div>
+      </div>
+      <div class="painting-card">
+        <div class="painting-img-wrap">
+          <img src="Stage Scene.png" alt="Stage Scene" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="card-overlay">
+          <div class="card-info">
+            <h3>Stage Scene</h3>
+            <span>Charcoal on paper · 2024 · 24x19 in.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTOGRAPHY -->
+  <section id="photography">
+    <div class="section-header">
+      <h2 class="section-title">Photography</h2>
+      <div class="section-rule"></div>
+      <span class="section-count">20 works</span>
+    </div>
+
+    <div class="photo-masonry">
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+        <img src="photo1.jpg" alt="Mountains" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Mountains</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo2.jpg" alt="Castle in the Rain" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Castle in the Rain</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo3.jpg" alt="Shibuya" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Shibuya</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo4.jpg" alt="Lovers in Bamboo" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Lovers in Bamboo</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo5.jpg" alt="Fish Market" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Fish Market</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo6.jpg" alt="Cow Grazing" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Cow Grazing</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo7.jpg" alt="Red Tunnel" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Red Tunnel</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo8.jpg" alt="Hidden City" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Hidden City</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo9.jpg" alt="Beach Day" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Beach Day</h3><span>Digital · 2026</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo10.jpg" alt="Garden" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Garden</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo11.jpg" alt="City through the Temple" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>City through the Temple</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo12.jpg" alt="Ocean Entrance" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Ocean Entrance</h3><span>Digital · 2026</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo13.jpg" alt="Vending Machines" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Vending Machines</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo14.jpg" alt="Lanterns" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Lanterns</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo15.jpg" alt="The River" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>The River</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo16.jpg" alt="Red Roof" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Red Roof</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo17.JPG" alt="Waves" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Waves</h3><span>Digital · 2026</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo18.JPG" alt="Riverside" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Riverside</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo19.jpg" alt="Street at Night" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Street at Night</h3><span>Digital · 2025</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-img-wrap">
+          <img src="photo20.jpg" alt="Pagoda" style="width:100%; height:auto; object-fit:cover; display:block;">
+        </div>
+        <div class="photo-meta"><h3>Pagoda</h3><span>Digital · 2025</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-portrait">
+      <img src="person3.jpg" alt="Portrait" style="width:100%; height:100%; object-fit:cover; display:block;">
+    </div>
+    <div class="about-content">
+      <p class="about-eyebrow">About the artist</p>
+      <h2 class="about-title">Creating through<br>observation &amp; quiet</h2>
+      <p class="about-body">
+        I work at the intersection of painting and photography, drawn to the ordinary moments that hold something luminous — a window at dusk, still water, the geometry of daily life.
+      </p>
+      <p class="about-body">
+        Based in New York. I am a current student at Barnard College of Columbia University, interested in studying mathematics.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header" style="justify-content:center;">
+      <h2 class="section-title">Contact</h2>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:yefan.jia@gmail.com" class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-value">yefan.jia@gmail.com</span>
+      </a>
+      <a href="#" class="contact-link">
+        <span class="contact-link-label">Instagram</span>
+        <span class="contact-link-value">@emmajiart</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span>Paintings &amp; Photography</span>
+  </footer>
+
+</body>
+</html>
