@@ -612,13 +612,41 @@
 
     @media (max-width: 900px) {
       nav { padding: 1.2rem 2rem; }
+      .nav-links { gap: 1.2rem; }
+      .nav-links a { font-size: 0.68rem; }
+
       .hero { grid-template-columns: 1fr; }
       .hero-visual { display: none; }
-      section { padding: 5rem 2rem; }
-      .paintings-masonry { grid-template-columns: repeat(2, 1fr); }
-      .photo-masonry { columns: 2; }
-      #about { grid-template-columns: 1fr; padding: 5rem 2rem; }
-      .about-portrait { display: none; }
+      .hero-text { padding: 4rem 2rem; }
+
+      section { padding: 4rem 2rem; }
+
+      .paintings-masonry { columns: 2; column-gap: 1rem; }
+      .painting-card { margin-bottom: 1rem; }
+
+      .photo-masonry { columns: 2; column-gap: 1rem; }
+      .photo-item { margin-bottom: 1rem; }
+
+      #about { grid-template-columns: 1fr; padding: 4rem 2rem; gap: 2rem; }
+      .about-portrait { aspect-ratio: 1/1; }
+
+      #contact { padding: 4rem 2rem; }
+      .contact-links { gap: 1.5rem; }
+
+      footer { padding: 1.5rem 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      /* Single column on small phones */
+      .paintings-masonry { columns: 1; }
+      .photo-masonry { columns: 1; }
+
+      /* Smaller nav — hide some links */
+      .nav-links { gap: 0.8rem; }
+      .nav-links a { font-size: 0.62rem; letter-spacing: 0.1em; }
+
+      /* About portrait smaller */
+      .about-portrait { display: block; aspect-ratio: 3/4; max-height: 400px; }
     }
   </style>
 </head>
@@ -783,19 +811,19 @@
       </div>
       <div class="photo-item">
         <div class="photo-img-wrap">
-          <img src="photo3.jpg" alt="Shibuya" style="width:100%; height:auto; object-fit:cover; display:block;">
+          <img src="photo3.JPG" alt="Shibuya" style="width:100%; height:auto; object-fit:cover; display:block;">
         </div>
         <div class="photo-meta"><h3>Shibuya</h3><span>Digital · 2025</span></div>
       </div>
       <div class="photo-item">
         <div class="photo-img-wrap">
-          <img src="photo4.jpg" alt="Lovers in Bamboo" style="width:100%; height:auto; object-fit:cover; display:block;">
+          <img src="photo4.JPG" alt="Lovers in Bamboo" style="width:100%; height:auto; object-fit:cover; display:block;">
         </div>
         <div class="photo-meta"><h3>Lovers in Bamboo</h3><span>Digital · 2025</span></div>
       </div>
       <div class="photo-item">
         <div class="photo-img-wrap">
-          <img src="photo5.jpg" alt="Fish Market" style="width:100%; height:auto; object-fit:cover; display:block;">
+          <img src="photo5.JPG" alt="Fish Market" style="width:100%; height:auto; object-fit:cover; display:block;">
         </div>
         <div class="photo-meta"><h3>Fish Market</h3><span>Digital · 2025</span></div>
       </div>
@@ -843,19 +871,19 @@
       </div>
       <div class="photo-item">
         <div class="photo-img-wrap">
-          <img src="photo13.jpg" alt="Vending Machines" style="width:100%; height:auto; object-fit:cover; display:block;">
+          <img src="photo13.JPG" alt="Vending Machines" style="width:100%; height:auto; object-fit:cover; display:block;">
         </div>
         <div class="photo-meta"><h3>Vending Machines</h3><span>Digital · 2025</span></div>
       </div>
       <div class="photo-item">
         <div class="photo-img-wrap">
-          <img src="photo14.jpg" alt="Lanterns" style="width:100%; height:auto; object-fit:cover; display:block;">
+          <img src="photo14.JPG" alt="Lanterns" style="width:100%; height:auto; object-fit:cover; display:block;">
         </div>
         <div class="photo-meta"><h3>Lanterns</h3><span>Digital · 2025</span></div>
       </div>
       <div class="photo-item">
         <div class="photo-img-wrap">
-          <img src="photo15.jpg" alt="The River" style="width:100%; height:auto; object-fit:cover; display:block;">
+          <img src="photo15.JPG" alt="The River" style="width:100%; height:auto; object-fit:cover; display:block;">
         </div>
         <div class="photo-meta"><h3>The River</h3><span>Digital · 2025</span></div>
       </div>
@@ -879,7 +907,7 @@
       </div>
       <div class="photo-item">
         <div class="photo-img-wrap">
-          <img src="photo19.jpg" alt="Street at Night" style="width:100%; height:auto; object-fit:cover; display:block;">
+          <img src="photo19." alt="Street at Night" style="width:100%; height:auto; object-fit:cover; display:block;">
         </div>
         <div class="photo-meta"><h3>Street at Night</h3><span>Digital · 2025</span></div>
       </div>
